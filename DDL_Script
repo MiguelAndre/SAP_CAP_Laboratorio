@@ -1,0 +1,196 @@
+
+CREATE TABLE com_Laboratorio_Products (
+  ID NVARCHAR(36) NOT NULL,
+  Name NVARCHAR(5000) NOT NULL,
+  Description NVARCHAR(5000),
+  ImageUrl NVARCHAR(5000),
+  ReleaseDate TIMESTAMP_TEXT DEFAULT CURRENT_TIMESTAMP,
+  DiscontinuedDate TIMESTAMP_TEXT,
+  Price DECIMAL(16, 2),
+  Height DECIMAL(16, 2),
+  Width DECIMAL(16, 2),
+  Depth DECIMAL(16, 2),
+  Quantity DECIMAL(16, 2),
+  Supplier_ID NVARCHAR(36),
+  UnitOfMeasures_ID NVARCHAR(2),
+  Currency_ID NVARCHAR(3),
+  DimensionUnits_ID NVARCHAR(2),
+  Category_ID NVARCHAR(1),
+  PriceCondition NVARCHAR(2),
+  PreciDetermination NVARCHAR(3),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_Laboratorio_Suppliers (
+  ID NVARCHAR(36) NOT NULL,
+  Name NVARCHAR(5000) NOT NULL,
+  Address_Street NVARCHAR(5000),
+  Address_City NVARCHAR(5000),
+  Address_State NVARCHAR(5000),
+  Address_PostalCode NVARCHAR(5000),
+  Address_Country NVARCHAR(5000),
+  Email NVARCHAR(5000),
+  Phone NVARCHAR(5000),
+  Fax NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_Laboratorio_Categories (
+  ID NVARCHAR(1) NOT NULL,
+  Name NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_Laboratorio_StockAvailability (
+  ID INTEGER NOT NULL,
+  Description NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_Laboratorio_Currencies (
+  ID NVARCHAR(3) NOT NULL,
+  Description NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_Laboratorio_UnitOfMeasures (
+  ID NVARCHAR(2) NOT NULL,
+  Description NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_Laboratorio_DimensionUnits (
+  ID NVARCHAR(2) NOT NULL,
+  Description NVARCHAR(5000),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_Laboratorio_Months (
+  ID NVARCHAR(2) NOT NULL,
+  Description NVARCHAR(5000),
+  ShortDescription NVARCHAR(3),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_Laboratorio_ProductReview (
+  ID NVARCHAR(36) NOT NULL,
+  Name NVARCHAR(5000),
+  Rating INTEGER,
+  Comment NVARCHAR(5000),
+  Product_ID NVARCHAR(36),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_Laboratorio_SalesDate (
+  ID NVARCHAR(36) NOT NULL,
+  DeliveryDate TIMESTAMP_TEXT,
+  Revenue DECIMAL(16, 2),
+  Product_ID NVARCHAR(36),
+  Currency_ID NVARCHAR(3),
+  DeliveryMonth_ID NVARCHAR(2),
+  PRIMARY KEY(ID)
+);
+
+CREATE VIEW com_Laboratorio_SelProducts AS SELECT
+  Products_0.ID,
+  Products_0.Name,
+  Products_0.Description,
+  Products_0.ImageUrl,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.Currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.PriceCondition,
+  Products_0.PreciDetermination
+FROM com_Laboratorio_Products AS Products_0;
+
+CREATE VIEW com_Laboratorio_SelProducts1 AS SELECT
+  Products_0.ID,
+  Products_0.Name,
+  Products_0.Description,
+  Products_0.ImageUrl,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.Currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.PriceCondition,
+  Products_0.PreciDetermination
+FROM com_Laboratorio_Products AS Products_0;
+
+CREATE VIEW com_Laboratorio_SelProducts2 AS SELECT
+  Products_0.Name,
+  Products_0.Price,
+  Products_0.Quantity
+FROM com_Laboratorio_Products AS Products_0;
+
+CREATE VIEW com_Laboratorio_SelProducts3 AS SELECT
+  ProductReview_1.Rating,
+  Products_0.Name,
+  sum(Products_0.Price) AS TotalPrice
+FROM (com_Laboratorio_Products AS Products_0 LEFT JOIN com_Laboratorio_ProductReview AS ProductReview_1 ON Products_0.Name = ProductReview_1.Name)
+GROUP BY ProductReview_1.Rating, Products_0.Name
+ORDER BY Rating;
+
+CREATE VIEW com_Laboratorio_ProjProducts AS SELECT
+  Products_0.ID,
+  Products_0.Name,
+  Products_0.Description,
+  Products_0.ImageUrl,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.Currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.PriceCondition,
+  Products_0.PreciDetermination
+FROM com_Laboratorio_Products AS Products_0;
+
+CREATE VIEW com_Laboratorio_ProjProducts1 AS SELECT
+  Products_0.ID,
+  Products_0.Name,
+  Products_0.Description,
+  Products_0.ImageUrl,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMeasures_ID,
+  Products_0.Currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Products_0.PriceCondition,
+  Products_0.PreciDetermination
+FROM com_Laboratorio_Products AS Products_0;
+
+CREATE VIEW com_Laboratorio_ProjProducts2 AS SELECT
+  Products_0.ReleaseDate,
+  Products_0.Name
+FROM com_Laboratorio_Products AS Products_0;
+
