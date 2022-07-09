@@ -91,6 +91,7 @@ CREATE TABLE com_Laboratorio_SalesDate (
   PRIMARY KEY(ID)
 );
 
+
 CREATE VIEW com_Laboratorio_SelProducts AS SELECT
   Products_0.ID,
   Products_0.Name,
